@@ -11,6 +11,9 @@ namespace Companion.Models.Context
         public DbSet<Config> Config { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Service> Service { get; set; }
+        public DbSet<Partner> Partner { get; set; }
+        public DbSet<Client> Client { get; set; }
+        public DbSet<Order> Order { get; set; }
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)

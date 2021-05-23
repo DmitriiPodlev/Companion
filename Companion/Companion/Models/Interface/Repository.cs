@@ -1,6 +1,7 @@
 ﻿using Companion.Models.Context;
 using Companion.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Companion.Models.Interface
 {
-    public class Repository
+    public class Repository : IRepository
     {
         private readonly ApplicationContext db;
         private readonly UserManager<User> userManager;
@@ -19,9 +20,12 @@ namespace Companion.Models.Interface
             this.userManager = userManager;
         }
 
-        public async Task<IdentityResult> CreateUser(User user, string password = null)
+        public async Task<IdentityResult> CreateUser(User user, string phone, string password = null)
         {
             var result = await userManager.CreateAsync(user, password);
+            var client = new Client(user.Id, phone, null, null, "русский", true);
+            db.Client.Add(client);
+            db.SaveChanges();
             return result;
         }
 
@@ -31,22 +35,30 @@ namespace Companion.Models.Interface
             return result;
         }
 
+        public async Task<Client> FindClient(string id)
+        {
+            return await db.Client.FindAsync(id);
+        }
+
         public async Task<IdentityResult> UpdateUser(User user)
         {
             var result = await userManager.UpdateAsync(user);
             return result;
         }
 
+        public async Task UpdateClient(Client client)
+        {
+            db.Client.Update(client);
+            await db.SaveChangesAsync();
+        }
+
         public async Task<IdentityResult> DeleteUser(User user)
         {
             var result = await userManager.DeleteAsync(user);
+            var client = db.Client.Find(user.Id);
+            db.Client.Remove(client);
+            db.SaveChanges();
             return result;
-        }
-
-        public async Task<User> FindUserByName(string name)
-        {
-            var user = await userManager.FindByNameAsync(name);
-            return user;
         }
 
         public async Task AddLogin(User user, ExternalLoginInfo info)
@@ -54,9 +66,16 @@ namespace Companion.Models.Interface
             await userManager.AddLoginAsync(user, info);
         }
 
-        public List<User> GetUsers()
+        public async Task<Client> FindUserByPhone(string phone)
         {
-            return userManager.Users.ToList();
+            var user = await db.Client.Where(x => x.Phone == phone)
+                .FirstOrDefaultAsync();
+            return user;
+        }
+
+        public List<Client> GetUsers()
+        {
+            return db.Client.ToList();
         }
 
         public async Task<User> GetUser(ClaimsPrincipal user)
@@ -67,6 +86,24 @@ namespace Companion.Models.Interface
         public async Task CreateActivity(Activity activity)
         {
             db.Activity.Add(activity);
+            await db.SaveChangesAsync();
+        }
+
+        public int GetLastActivityId()
+        {
+            var activity = db.Activity.LastOrDefault();
+            if (activity == null)
+                return 1;
+            else
+            {
+                var id = activity.Id + 1;
+                return id;
+            }
+        }
+
+        public async Task UpdateActivity(Activity activity)
+        {
+            db.Activity.Update(activity);
             await db.SaveChangesAsync();
         }
 
@@ -117,6 +154,54 @@ namespace Companion.Models.Interface
         public List<Location> GetLocations()
         {
             return db.Location.ToList();
+        }
+
+        public async Task CreatePartner(Partner partner)
+        {
+            db.Partner.Add(partner);
+            await db.SaveChangesAsync();
+        }
+
+        public List<Partner> GetPartners()
+        {
+            return db.Partner.ToList();
+        }
+
+        public Partner GetPartner(string text)
+        {
+            var parnter = db.Partner.Where(x => x.Information == text)
+                .FirstOrDefault();
+            return parnter;
+        }
+
+        public async Task CreateOrder(Order order)
+        {
+            db.Order.Add(order);
+            await db.SaveChangesAsync();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return db.Order.Find(id);
+        }
+
+        public List<Order> GetOrders()
+        {
+            return db.Order.ToList();
+        }
+        
+        public List<Order> GetOrdersByClientId(string id)
+        {
+            var orders = db.Order.Where(x => x.ClientId == id)
+                .ToList();
+            return orders;
+        }
+
+        public async Task DeleteOrder(int id)
+        {
+            var order = db.Order.Find(id);
+            db.Order.Remove(order);
+            await db.SaveChangesAsync();
         }
     }
 }
