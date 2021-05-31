@@ -1,4 +1,34 @@
-﻿@page
-@model Companion.Views.Business.ActivitiesModel
-@{
-}
+﻿@model List<Companion.Models.Entities.Activity>
+
+<div class="text-center">
+    <h2>Услуги</h2>
+</div>
+<div>
+    <div class="textblock">
+        <table>
+            <tr>
+                <td class="tdboldtext"><p class="tditem">Название услуги</p></td>
+                <td class="tdboldtext"><p class="tditem">Тип услуги</p></td>
+                <td class="tdboldtext"><p class="tditem">Адреса</p></td>
+                <td class="tdboldtextlast"><p class="tditem">Период работы</p></td>
+                <td></td>
+            </tr>
+            @foreach (var activity in Model)
+            {
+                <tr>
+                    <td class="td">@activity.Name</td>
+                    <td class="td"><p class="tditem">@activity.Category</p></td>
+                    <td class="td">
+                        @foreach(var location in activity.Locations)
+                        {
+                            <p>@location</p>
+                            <br>
+                        }
+                    </td>
+                    <td class="td">@activity.PeriodOfWork</td>
+                    <td class="td"><a asp-action="Create" asp-controller="Order" asp-route-id="@activity.Id">Записаться</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

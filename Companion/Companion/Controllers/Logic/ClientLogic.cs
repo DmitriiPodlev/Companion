@@ -22,6 +22,19 @@ namespace Companion.Controllers.Logic
             this.userManager = userManager;
         }
 
+        public EditViewModel GetModel()
+        {
+            var list = new List<string>() { "русский", "английский", "испанский", "китайский"};
+            return new EditViewModel { Languages = list };
+        }
+        
+        public async Task<Client> Information(string id)
+        {
+            IRepository repository = new Repository(context, userManager);
+            var client = await repository.FindClient(id);
+            return client;
+        }
+
         public Task EditCient(EditViewModel model)
         {
             IRepository repository = new Repository(context, userManager);

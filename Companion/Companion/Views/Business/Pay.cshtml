@@ -1,4 +1,21 @@
-﻿@page
-@model Companion.Views.Business.PayModel
-@{
-}
+﻿<div class="text-center">
+<h2>Оплата</h2>
+</div>
+<div class="row">
+    <p>Номер карты:</p><br>
+    <input class="form-control" />
+    <p>Имя владельца:</p><br>
+    <input class="form-control" />
+    <p>Срок действия:</p><br>
+    <input class="form-control" />
+    <p>CVC:</p><br>
+    <input class="form-control" />
+    <br>
+    <br>
+    <div class="text-center">
+        <button id="set" type="submit" class="btn btn-success btn-lg">Оплатить</button>
+    </div>
+    <div>
+        <a asp-action="Index" asp-controller="Business">Назад</a>
+    </div>
+</div>

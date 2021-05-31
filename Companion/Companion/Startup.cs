@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using Companion.Controllers.Services;
 
 namespace Companion
 {
@@ -30,10 +31,14 @@ namespace Companion
             //services.AddTransient<IPasswordValidator<User>, CustomPasswordValidator<User>>();
             //services.AddTransient<IUserValidator<User>, CustomUserValidator<User>>();
             services.AddDbContext<ApplicationContext>(options =>
-               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("ApplicationConnection")));
+            services.AddDbContext<IdentityContext>(options =>
+              options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSignalR();
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

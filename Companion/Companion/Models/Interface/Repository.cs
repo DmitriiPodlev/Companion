@@ -20,7 +20,7 @@ namespace Companion.Models.Interface
             this.userManager = userManager;
         }
 
-        public async Task<IdentityResult> CreateUser(User user, string phone, string password = null)
+        public async Task<IdentityResult> CreateUser(User user, string phone, string password = "password")
         {
             var result = await userManager.CreateAsync(user, password);
             var client = new Client(user.Id, phone, null, null, "русский", true);
@@ -91,7 +91,7 @@ namespace Companion.Models.Interface
 
         public int GetLastActivityId()
         {
-            var activity = db.Activity.LastOrDefault();
+            var activity = db.Activity.ToList().LastOrDefault();
             if (activity == null)
                 return 1;
             else

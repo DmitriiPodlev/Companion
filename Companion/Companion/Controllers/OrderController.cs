@@ -23,9 +23,11 @@ namespace Companion.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            IOrder repository = new OrderLogic(_userManager, context);
+            var model = repository.GetModel(id);
+            return View(model);
         }
 
         [HttpPost]
@@ -33,7 +35,7 @@ namespace Companion.Controllers
         {
             IOrder repository = new OrderLogic(_userManager, context);
             repository.CreateOrder(order);
-            return RedirectToAction("/Home/Index");
+            return RedirectToAction("Index", "Client");
         }
 
         [HttpGet]

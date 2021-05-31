@@ -1,4 +1,44 @@
-﻿@page
-@model Companion.Views.Client.EditModel
-@{
-}
+﻿@model Companion.Views.Models.Client.EditViewModel
+<div class="text-center">
+    <h2>Моя страница</h2>
+</div>
+<div class="row">
+    <div class="container4">
+        <form asp-action="Edit" method="post">
+            <div class="form-group">
+                <h5><label for="Edit">Имя:</label></h5>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5><label for="Edit">Фамилия:</label></h5>
+                <input asp-for="SecondName" class="form-control" />
+                <span asp-validation-for="SecondName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5><label for="Edit">Телефон:</label></h5>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5><label for="Edit">Уведомления:</label></h5>
+                <input asp-for="Notifications" type="radio" value="True" />Да
+                <input asp-for="Notifications" type="radio" value="False" />Нет
+            </div>
+            <div class="form-group">
+                <h5><label for="Edit">Язык:</label></h5>
+                <select asp-for="Language" id="sel1">
+                    @foreach (var lan in Model.Languages)
+                    {
+                        <option value="@lan">@lan</option>
+                    }
+                </select>
+            </div>
+            <br>
+            <br>
+            <div class="text-center">
+                <button id="set" type="submit" class="btn btn-success btn-lg">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -11,6 +11,7 @@ namespace Companion.Views.Models.Client
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Language { get; set; }
+        public List<string> Languages { get; set; }
         public string Phone { get; set; }
         public bool Notifications { get; set; }
     }

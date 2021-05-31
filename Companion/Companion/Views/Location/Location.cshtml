@@ -1,4 +1,14 @@
-﻿@page
-@model Companion.Views.Location.LocationModel
-@{
-}
+﻿@model Companion.Models.Entities.Location
+<div class="text-center">
+<h2>Локация</h2>
+</div>
+<div class="row">
+    <p>Адрес:</p><br>
+    <p>@Model.Name</p><br>
+    <p>Долгота:</p><br>
+    <p>@Model.Longitude</p><br>
+    <p>Широта:</p><br>
+    <p>@Model.Latitude</p><br>
+    <p>Радус:</p><br>
+    <p>@Model.Radius</p>
+</div>

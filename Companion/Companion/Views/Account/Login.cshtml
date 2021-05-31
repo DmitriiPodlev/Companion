@@ -1,4 +1,24 @@
-﻿@page
-@model Companion.Views.Account.LoginModel
-@{
-}
+﻿@model Companion.Views.Models.Login.AccountModel
+    <div class="text-center">
+        <h2>Вход</h2>
+    </div>
+    <div class="row">
+        <div class="container4">
+            <form asp-action="Login" method="post">
+                <div class="form-group">
+                    <h5><label for="Login">Номер телефона</label></h5>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h5><label for="Login">Смс-код</label></h5>
+                    56782
+                </div>
+                <br>
+                <br>
+                <div class="text-center">
+                    <button id="set" type="submit" class="btn btn-success btn-lg">Войти</button>
+                </div>
+            </form>
+        </div>
+    </div>

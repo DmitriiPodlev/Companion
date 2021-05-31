@@ -23,10 +23,19 @@ namespace Companion.Controllers
             this.context = context;
         }
 
+        public async Task<IActionResult> Index(string id)
+        {
+            IClient repository = new ClientLogic(context, _userManager);
+            var model = await repository.Information(id);
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult Edit()
         {
-            return View();
+            IClient repository = new ClientLogic(context, _userManager);
+            var model = repository.GetModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -34,7 +43,7 @@ namespace Companion.Controllers
         {
             IClient repository = new ClientLogic(context, _userManager);
             repository.EditCient(model);
-            return View(model);
+            return RedirectToAction("Index", "Client");
         }
 
         [HttpGet]

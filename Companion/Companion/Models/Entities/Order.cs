@@ -21,5 +21,6 @@ namespace Companion.Models.Entities
         public string Date { get; set; }
         public string Qr_code { get; set; }
         public string ClientId { get; set; }
+        public int ActivityId { get; set; }
     }
 }

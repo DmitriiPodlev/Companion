@@ -33,11 +33,11 @@ namespace Companion.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(AccountModel model)
+        public async Task<IActionResult> Login(AccountModel model)
         {
             IAccount repository = new AccountLogic(_userManager, _signInManager, context);
-            repository.Login(model);
-            return View(model);
+            await repository.Login(model);
+            return RedirectToAction("Clients", "Client");
         }
 
         [HttpGet]
@@ -51,7 +51,7 @@ namespace Companion.Controllers
         {
             IAccount repository = new AccountLogic(_userManager, _signInManager, context);
             repository.LoginPartner(model);
-            return View(model);
+            return RedirectToAction("Index", "Business");
         }
     }
 }

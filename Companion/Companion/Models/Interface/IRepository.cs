@@ -10,7 +10,7 @@ namespace Companion.Models.Interface
 {
     public interface IRepository
     {
-        Task<IdentityResult> CreateUser(User user, string phone, string password = null);
+        Task<IdentityResult> CreateUser(User user, string phone, string password = "password");
         Task<User> FindUser(string userId);
         Task<Client> FindClient(string id);
         Task<IdentityResult> UpdateUser(User user);

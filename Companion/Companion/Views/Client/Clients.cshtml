@@ -1,4 +1,23 @@
-﻿@page
-@model Companion.Views.Client.ClientsModel
-@{
-}
+﻿@model List<Companion.Models.Entities.Client>
+<div class="text-center">
+    <h2>Список клиентов</h2>
+</div>
+<div class="row">
+    <div class="textblock">
+        <table>
+            <tr>
+                <td class="tdboldtext"><p class="tditem">Имя</p></td>
+                <td class="tdboldtext"><p class="tditem">Фамилия</p></td>
+                <td class="tdboldtext"><p class="tditem">Телефон</p></td>
+            </tr>
+            @foreach (var client in Model)
+            {
+                <tr>
+                    <td class="td">@client.FirstName</td>
+                    <td class="td"><p class="tditem">@client.LastName</p></td>
+                    <td class="td"><a asp-action="Index" asp-controller="Client" asp-route-id="@client.Id">@client.Phone</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

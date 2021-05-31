@@ -9,6 +9,8 @@ namespace Companion.Controllers.Logic.LogicInterface
 {
     public interface IClient
     {
+        EditViewModel GetModel();
+        Task<Client> Information(string id);
         public Task EditCient(EditViewModel model);
         List<Client> GetClients();
         Task DeleteClient(string id);

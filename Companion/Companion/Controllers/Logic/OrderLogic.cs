@@ -2,6 +2,7 @@
 using Companion.Models.Context;
 using Companion.Models.Entities;
 using Companion.Models.Interface;
+using Companion.Views.Models.Order;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,14 @@ namespace Companion.Controllers.Logic
         {
             this.userManager = userManager;
             this.context = context;
+        }
+
+        public CreateOrderViewModel GetModel(int id)
+        {
+            IRepository repository = new Repository(context, userManager);
+            var activity = repository.GetActivity(id);
+            return new CreateOrderViewModel { ActivityId = id, Adress = activity.PeriodOfWork,
+            Name = activity.Name};
         }
 
         public Task CreateOrder(Order order)

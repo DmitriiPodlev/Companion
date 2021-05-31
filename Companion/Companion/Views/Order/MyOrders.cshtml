@@ -1,4 +1,26 @@
-﻿@page
-@model Companion.Views.Order.MyOrdersModel
-@{
-}
+﻿@model List<Companion.Models.Entities.Order>
+
+<div class="text-center">
+    <h2>Мои заказы</h2>
+</div>
+<div>
+    <div class="textblock">
+        <table>
+            <tr>
+                <td class="tdboldtext"><p class="tditem">Название</p></td>
+                <td class="tdboldtext"><p class="tditem">Адрес</p></td>
+                <td class="tdboldtext"><p class="tditem">Время</p></td>
+                <td class="tdboldtext"><p class="tditem"></p></td>
+            </tr>
+            @foreach (var order in Model)
+        {
+            <tr>
+                <td class="td">@order.Name</td>
+                <td class="td"><p class="tditem">@order.Adres</p></td>
+                <td class="td">@order.Date</td>
+                <td class="td"><a asp-action="Information" asp-controller="Order" asp-route-id="@order.Id">Подробнее</a></td>
+            </tr>
+        }
+        </table>
+    </div>
+</div>

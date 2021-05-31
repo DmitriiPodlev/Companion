@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Companion.Controllers
@@ -24,9 +25,17 @@ namespace Companion.Controllers
         }
 
         [HttpGet]
-        public IActionResult Start()
+        public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Start()
+        {
+            IBusiness repository = new BusinessLogic(_userManager, context);
+            var model = repository.GetCategories();
+            return View(model);
         }
 
         [HttpPost]
@@ -34,13 +43,15 @@ namespace Companion.Controllers
         {
             IBusiness repository = new BusinessLogic(_userManager, context);
             repository.Start(model);
-            return View(model);
+            return RedirectToAction("Information", "Business");
         }
 
         [HttpGet]
         public IActionResult Information()
         {
-            return View();
+            IBusiness repository = new BusinessLogic(_userManager, context);
+            var model = repository.GetInfo();
+            return View(model);
         }
 
         [HttpPost]
@@ -48,13 +59,15 @@ namespace Companion.Controllers
         {
             IBusiness repository = new BusinessLogic(_userManager, context);
             repository.Information(model);
-            return View(model);
+            return RedirectToAction("Locations", "Business");
         }
 
         [HttpGet]
         public IActionResult Locations()
         {
-            return View();
+            IBusiness repository = new BusinessLogic(_userManager, context);
+            var model = repository.GetLocations();
+            return View(model);
         }
 
         [HttpPost]
@@ -62,13 +75,15 @@ namespace Companion.Controllers
         {
             IBusiness repository = new BusinessLogic(_userManager, context);
             repository.Locations(model);
-            return View(model);
+            return RedirectToAction("Platform", "Business");
         }
 
         [HttpGet]
         public IActionResult Platform()
         {
-            return View();
+            IBusiness repository = new BusinessLogic(_userManager, context);
+            var model = repository.GetData();
+            return View(model);
         }
 
         [HttpPost]
@@ -76,7 +91,7 @@ namespace Companion.Controllers
         {
             IBusiness repository = new BusinessLogic(_userManager, context);
             repository.Platform(model);
-            return View(model);
+            return RedirectToAction("Pay", "Business");
         }
 
 
@@ -87,7 +102,7 @@ namespace Companion.Controllers
         }
 
         [HttpGet]
-        public IActionResult Acitvities()
+        public IActionResult Activities()
         {
             IBusiness repository = new BusinessLogic(_userManager, context);
             var activities = repository.GetActivities();
@@ -100,6 +115,14 @@ namespace Companion.Controllers
             IBusiness repository = new BusinessLogic(_userManager, context);
             var activity = repository.GetActivity(id);
             return View(activity);
+        }
+
+        [HttpGet]
+        public IActionResult MyActivities()
+        {
+            IBusiness repository = new BusinessLogic(_userManager, context);
+            var activities = repository.GetActivities();
+            return View(activities);
         }
     }
 }

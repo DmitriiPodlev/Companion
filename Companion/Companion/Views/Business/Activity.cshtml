@@ -1,4 +1,28 @@
-﻿@page
-@model Companion.Views.Business.ActivityModel
-@{
-}
+﻿@model Companion.Models.Entities.Activity
+<div class="text-center">
+    <h2>Услуга</h2>
+</div>
+<div>
+    <p>Название услуги:</p><br>
+    <p>@Model.Name</p><br>
+    <p>Категория:</p><br>
+    <p>@Model.Category</p><br>
+    <p>Телефон:</p><br>
+    <p>@Model.Email</p><br>
+    <p>Почта:</p><br>
+    <p>@Model.Email</p><br>
+    <p>Веб-сайт:</p><br>
+    <p>@Model.WebSite</p><br>
+    <p>Период работы:</p><br>
+    <p>@Model.PeriodOfWork</p><br>
+    <p>Адреса:</p><br>
+    @foreach (var location in Model.Locations)
+        {
+            <p>@location</p><br>
+        }
+    <p>Описание:</p><br>
+    <p>@Model.Description</p><br>
+    <p>Статус:</p><br>
+    <p>@Model.Status</p><br>
+</div>
+

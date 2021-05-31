@@ -1,4 +1,14 @@
-﻿@page
-@model Companion.Views.Order.InformationModel
-@{
-}
+﻿@model Companion.Models.Entities.Order
+<div class="text-center">
+    <h2>Заказ</h2>
+</div>
+<div>
+    <p>Название:</p><br>
+    <p>@Model.Name</p><br>
+    <p>Адрес:</p><br>
+    <p>@Model.Adres</p><br>
+    <p>Время:</p><br>
+    <p>@Model.Date</p><br>
+    <p>Qr-код:</p><br>
+    <p>@Model.Qr_code</p><br>
+</div>

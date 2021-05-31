@@ -11,7 +11,7 @@ namespace Companion.Views.Models.Business
         public int Id { get; set; }
 
         [Required]
-        public List<string> Adress { get; set; }
+        public string Adres { get; set; }
 
         [Required]
         public string PeriodOfWork { get; set; }

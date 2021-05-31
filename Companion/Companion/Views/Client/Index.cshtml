@@ -1,0 +1,25 @@
+﻿@model Companion.Models.Entities.Client
+<div class="text-center">
+    <h2>Добро пожаловать!</h2>
+</div>
+<p>Имя:</p>
+<br>
+<p>@Model.FirstName</p>
+<br>
+<p>Фамилия:</p>
+<br>
+<p>@Model.LastName</p>
+<br>
+<p>Телефон:</p>
+<br>
+<p>@Model.Phone</p>
+<br>
+<div>
+    <a asp-action="MyOrders" asp-controller="Order">Мои заказы</a>
+</div>
+<div>
+    <a asp-action="Activities" asp-controller="Business">Услуги</a>
+</div>
+<div>
+    <a asp-action="Edit" asp-controller="Client" asp-route-id="@Model.Id">О себе</a>
+</div>

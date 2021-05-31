@@ -4,9 +4,8 @@ using Companion.Models.Entities;
 
 namespace Companion.Models.Context
 {
-    public class ApplicationContext : IdentityDbContext<User>
+    public class ApplicationContext : DbContext
     {
-        public DbSet<Message> Messages { get; set; }
         public DbSet<Activity> Activity { get; set; }
         public DbSet<Config> Config { get; set; }
         public DbSet<Location> Location { get; set; }
@@ -20,14 +19,6 @@ namespace Companion.Models.Context
             : base(options)
         {
             Database.EnsureCreated();
-        }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.Entity<Message>()
-                .HasOne(a => a.Sender)
-                .WithMany(a => a.Messages)
-                .HasForeignKey(a => a.UserId);
         }
     }
 }
